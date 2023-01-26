@@ -9,7 +9,6 @@ home_team = input("Enter the home team name: ")
 away_team = input("Enter the away team name: ")
 
 
-
 #### Search for the team's data ####
 def getData(team_name):
     # read in data from cbb_advanced_stats.csv
@@ -21,6 +20,9 @@ def getData(team_name):
     with open('cbb_opponent_stats.csv', 'r') as f:
         reader = csv.reader(f)
         opp_data = list(reader)
+
+    # initialize the variable team_data
+    team_data = []
 
     # loop through the data
     for row in data:
@@ -63,11 +65,11 @@ def getData(team_name):
             team_opp_data = row[16:]
             break
     
-    # if the team is not found, ask the user to enter the team name again
-    if team_opp_data == []:
-        print("Team not found. Try again.")
-        team_name = input("Enter the team name: ")
-        team_opp_data = getData(team_name)
+    # if the team is not found, exit the program
+    if team_data == []:
+        print(team_name + " not found.")
+        sys.exit()
+
 
     # return the team's data and opponent data
     return team_data, team_opp_data
