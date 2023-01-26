@@ -104,6 +104,10 @@ def predictScore(home_team, home_team_or, home_team_dr, home_team_pace, away_tea
     home_team_score = (home_team_or + away_team_dr) / 2
     away_team_score = (away_team_or + home_team_dr) / 2
 
+    # print current scores #
+    # print("Home team's score: " + str(home_team_score))
+    # print("Away team's score: " + str(away_team_score))
+
     # using rebounding and turnover percentages, calculate the home and away team's scores
     home_trb_top = home_team_trb - home_team_top
     away_trb_top = away_team_trb - away_team_top
@@ -118,6 +122,10 @@ def predictScore(home_team, home_team_or, home_team_dr, home_team_pace, away_tea
         home_team_score = home_team_score - difference
         away_team_score = away_team_score + difference
 
+    # print current scores #
+    # print("1 Home team's score: " + str(home_team_score))
+    # print("1 Away team's score: " + str(away_team_score))
+
     # add the home team's win percentage is greater than .7, multiply it by 2 and add it to the home team's score
     if home_team_win > .7:
         home_team_score = home_team_score + (home_team_win * 2)
@@ -130,6 +138,10 @@ def predictScore(home_team, home_team_or, home_team_dr, home_team_pace, away_tea
         away_team_score = away_team_score + away_team_win
     else:
         away_team_score = away_team_score - away_team_win
+
+    # print current scores #
+    # print("2 Home team's score: " + str(home_team_score))
+    # print("2 Away team's score: " + str(away_team_score))
 
     # get the difference between the home team's SRS and the away team's SRS
     srs_difference = home_team_srs - away_team_srs
@@ -151,6 +163,10 @@ def predictScore(home_team, home_team_or, home_team_dr, home_team_pace, away_tea
     elif srs_difference >= 5:
         away_team_score = away_team_score + (srs_difference / 4)
 
+    # print current scores #
+    # print("3 Home team's score: " + str(home_team_score))
+    # print("3 Away team's score: " + str(away_team_score))
+
     # adjust the home team's score based the efg% and 3p attempt percentage
     # if the home team's efg% + 3p attempt percentage is greater than the away team's efg% + 3p attempt percentage, add 1.5 to the home team's score
     if home_team_efg + home_team_3p > away_team_efg + away_team_3p:
@@ -166,6 +182,10 @@ def predictScore(home_team, home_team_or, home_team_dr, home_team_pace, away_tea
     # if the away team's efg% + 3p attempt percentage is less than the home team's efg% + 3p attempt percentage, subtract 1.5 from the away team's score
     elif away_team_efg + away_team_3p < home_team_efg + home_team_3p:
         away_team_score = away_team_score - 1.5
+
+    # print current scores #
+    # print("4 Home team's score: " + str(home_team_score))
+    # print("4 Away team's score: " + str(away_team_score))
 
     # if rivalry game, add 1.5 to the underdog's score
     if rivalry == True:
@@ -242,7 +262,7 @@ home_team_3p = home_team_data[17]
 home_team_efg = home_team_data[23]
 
 
-### get away team's stats ##
+### get away team's stats ###
 away_team_or = away_team_data[15]
 away_team_pace = away_team_data[14]
 away_team_dr = away_team_opp_data[0]
