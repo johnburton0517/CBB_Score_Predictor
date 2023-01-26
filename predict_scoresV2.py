@@ -1,5 +1,6 @@
 # Written by John Burton
 import csv
+import sys
 
 # get the home team from the user
 home_team = input("Enter the home team name: ")
@@ -166,6 +167,12 @@ def predictScore(home_team, home_team_or, home_team_dr, home_team_pace, away_tea
     elif away_team_efg + away_team_3p < home_team_efg + home_team_3p:
         away_team_score = away_team_score - 1.5
 
+    # if rivalry game, add 1.5 to the underdog's score
+    if rivalry == True:
+        if home_team_srs > away_team_srs:
+            away_team_score = away_team_score + 1.5
+        else:
+            home_team_score = home_team_score + 1.5
 
 
 
@@ -196,6 +203,12 @@ def predictScore(home_team, home_team_or, home_team_dr, home_team_pace, away_tea
 
 #####################################
 
+# get command line arguments if it is a rivalry game
+if len(sys.argv) == 2:
+    if sys.argv[1] == "r" or sys.argv[1] == "R" or sys.argv[1] == "Rivalry" or sys.argv[1] == "rivalry":
+        rivalry = True
+else:
+    rivalry = False
 
 
 # call the getData function for the home team and away team
