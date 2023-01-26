@@ -8,6 +8,8 @@ home_team = input("Enter the home team name: ")
 away_team = input("Enter the away team name: ")
 
 
+
+#### Search for the team's data ####
 def getData(team_name):
     # read in data from cbb_advanced_stats.csv
     with open('cbb_advanced_stats.csv', 'r') as f:
@@ -31,13 +33,18 @@ def getData(team_name):
             # save the team's data
             team_data = row
 
-            # YorNo = input("Is " + team_data[0] + "this the correct team? (y/n)")
-            # if YorNo.lower() == "y":
-            #     break
-            # else:
-            #     team_data = []
-            #     team_name = input("Enter the home team name: ")
-            #     team_data = getData(team_name)
+            # checks if the team found is the correct team
+            while isCorrectTeam(team_data) == False:
+                # continue to loop through the data, starting after the current row
+                for row in data[data.index(row) + 1:]:
+                    # if row is empty, skip it
+                    if row == []:
+                        continue
+                    # search for the team name
+                    if team_name.lower() in row[0].lower():
+                        # save the team's data
+                        team_data = row
+                        break
             break
 
 
@@ -63,12 +70,25 @@ def getData(team_name):
 
     # return the team's data and opponent data
     return team_data, team_opp_data
+####################################
 
 
-# function to predict the score of a game
+# ask if correct team
+def isCorrectTeam(team_data):
+    YorNo = input("Is " + team_data[0] + " the correct team? (y/n) ")
+    if YorNo.lower() == "y":
+        return True
+    else:
+        return False
+
+
+
+
+#### Predict the score of a game ####
 def predictScore(home_team, home_team_or, home_team_dr, home_team_pace, away_team, away_team_or, 
                 away_team_dr, away_team_pace, home_team_trb, home_team_top, away_team_trb, 
-                away_team_top, home_team_win, away_team_win, home_team_srs, away_team_srs):
+                away_team_top, home_team_win, away_team_win, home_team_srs, away_team_srs,
+                home_team_3p, away_team_3p, home_team_efg, away_team_efg):
 
     # average the pace of the home team and away team
     avg_pace = (home_team_pace + away_team_pace) / 2
@@ -130,6 +150,24 @@ def predictScore(home_team, home_team_or, home_team_dr, home_team_pace, away_tea
     elif srs_difference >= 5:
         away_team_score = away_team_score + (srs_difference / 4)
 
+    # adjust the home team's score based the efg% and 3p attempt percentage
+    # if the home team's efg% + 3p attempt percentage is greater than the away team's efg% + 3p attempt percentage, add 1.5 to the home team's score
+    if home_team_efg + home_team_3p > away_team_efg + away_team_3p:
+        home_team_score = home_team_score + 1.5
+    # if the home team's efg% + 3p attempt percentage is less than the away team's efg% + 3p attempt percentage, subtract 1.5 from the home team's score
+    elif home_team_efg + home_team_3p < away_team_efg + away_team_3p:
+        home_team_score = home_team_score - 1.5
+
+    # adjust the away team's score based the efg% and 3p attempt percentage
+    # if the away team's efg% + 3p attempt percentage is greater than the home team's efg% + 3p attempt percentage, add 1.5 to the away team's score
+    if away_team_efg + away_team_3p > home_team_efg + home_team_3p:
+        away_team_score = away_team_score + 1.5
+    # if the away team's efg% + 3p attempt percentage is less than the home team's efg% + 3p attempt percentage, subtract 1.5 from the away team's score
+    elif away_team_efg + away_team_3p < home_team_efg + home_team_3p:
+        away_team_score = away_team_score - 1.5
+
+
+
 
     # round the scores to whole numbers
     home_team_score = round(home_team_score)
@@ -145,6 +183,18 @@ def predictScore(home_team, home_team_or, home_team_dr, home_team_pace, away_tea
         print("Tie " + str(home_team_score) + "-" + str(away_team_score))
 
 
+    # print the betting line
+    # if the home team is the favorite, print the betting line
+    if home_team_score > away_team_score:
+        print("Betting line: " + home_team + " -" + str(home_team_score - away_team_score))
+    # if the away team is the favorite, print the betting line
+    elif home_team_score < away_team_score:
+        print("Betting line: " + away_team + " -" + str(away_team_score - home_team_score))
+
+    # print("Betting line: " + home_team + " -" + str(home_team_score - away_team_score) + " " + away_team)
+
+
+#####################################
 
 
 
@@ -173,6 +223,10 @@ home_team_top = home_team_data[24]
 home_team_win = (home_team_data[8] / (home_team_data[8] + home_team_data[9]))
 # Simple Rating System (SRS)
 home_team_srs = home_team_data[4]
+# 3 point shooting rate
+home_team_3p = home_team_data[17]
+# effective field goal percentage
+home_team_efg = home_team_data[23]
 
 
 ### get away team's stats ##
@@ -186,9 +240,15 @@ away_team_top = away_team_data[24]
 away_team_win = (away_team_data[10] / (away_team_data[10] + away_team_data[11]))
 # Simple Rating System (SRS)
 away_team_srs = away_team_data[4]
+# get 3 point shooting rate
+away_team_3p = away_team_data[17]
+# effective field goal percentage
+away_team_efg = away_team_data[23]
+
 
 
 # call the predictScore function
 predictScore(home_team, home_team_or, home_team_dr, home_team_pace, away_team, away_team_or, 
             away_team_dr, away_team_pace, home_team_trb, home_team_top, away_team_trb, 
-            away_team_top, home_team_win, away_team_win, home_team_srs, away_team_srs)
+            away_team_top, home_team_win, away_team_win, home_team_srs, away_team_srs,
+            home_team_3p, away_team_3p, home_team_efg, away_team_efg)
