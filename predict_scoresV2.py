@@ -170,20 +170,20 @@ def predictScore(home_team, home_team_or, home_team_dr, home_team_pace, away_tea
     # print("3 Away team's score: " + str(away_team_score))
 
     # adjust the home team's score based the efg% and 3p attempt percentage
-    # if the home team's efg% + 3p attempt percentage is greater than the away team's efg% + 3p attempt percentage, add 1.5 to the home team's score
-    if home_team_efg + home_team_3p > away_team_efg + away_team_3p:
-        home_team_score = home_team_score + 1.5
-    # if the home team's efg% + 3p attempt percentage is less than the away team's efg% + 3p attempt percentage, subtract 1.5 from the home team's score
-    elif home_team_efg + home_team_3p < away_team_efg + away_team_3p:
-        home_team_score = home_team_score - 1.5
+    # # if the home team's efg% + 3p attempt percentage is greater than the away team's efg% + 3p attempt percentage, add 1.5 to the home team's score
+    # if home_team_efg + home_team_3p > away_team_efg + away_team_3p:
+    #     home_team_score = home_team_score + 1.5
+    # # if the home team's efg% + 3p attempt percentage is less than the away team's efg% + 3p attempt percentage, subtract 1.5 from the home team's score
+    # elif home_team_efg + home_team_3p < away_team_efg + away_team_3p:
+    #     home_team_score = home_team_score - 1.5
 
-    # adjust the away team's score based the efg% and 3p attempt percentage
-    # if the away team's efg% + 3p attempt percentage is greater than the home team's efg% + 3p attempt percentage, add 1.5 to the away team's score
-    if away_team_efg + away_team_3p > home_team_efg + home_team_3p:
-        away_team_score = away_team_score + 1.5
-    # if the away team's efg% + 3p attempt percentage is less than the home team's efg% + 3p attempt percentage, subtract 1.5 from the away team's score
-    elif away_team_efg + away_team_3p < home_team_efg + home_team_3p:
-        away_team_score = away_team_score - 1.5
+    # # adjust the away team's score based the efg% and 3p attempt percentage
+    # # if the away team's efg% + 3p attempt percentage is greater than the home team's efg% + 3p attempt percentage, add 1.5 to the away team's score
+    # if away_team_efg + away_team_3p > home_team_efg + home_team_3p:
+    #     away_team_score = away_team_score + 1.5
+    # # if the away team's efg% + 3p attempt percentage is less than the home team's efg% + 3p attempt percentage, subtract 1.5 from the away team's score
+    # elif away_team_efg + away_team_3p < home_team_efg + home_team_3p:
+    #     away_team_score = away_team_score - 1.5
 
     # print current scores #
     # print("4 Home team's score: " + str(home_team_score))
