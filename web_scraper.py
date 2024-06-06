@@ -5,8 +5,8 @@ import requests
 from bs4 import BeautifulSoup
 import csv
 
-url = 'https://www.sports-reference.com/cbb/seasons/2023-advanced-school-stats.html'
-opp_url = "https://www.sports-reference.com/cbb/seasons/2023-advanced-opponent-stats.html"
+url = 'https://www.sports-reference.com/cbb/seasons/2024-advanced-school-stats.html'
+opp_url = "https://www.sports-reference.com/cbb/seasons/2024-advanced-opponent-stats.html"
 
 r = requests.get(url)
 opp_r = requests.get(opp_url)

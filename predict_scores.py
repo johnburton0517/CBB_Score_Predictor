@@ -26,18 +26,8 @@ def getData(team_name):
             continue
         # search for the team name
         if team_name.lower() in row[0].lower():
-            # print(row)
-
             # save the team's data
             team_data = row
-
-            # YorNo = input("Is " + team_data[0] + "this the correct team? (y/n)")
-            # if YorNo.lower() == "y":
-            #     break
-            # else:
-            #     team_data = []
-            #     team_name = input("Enter the home team name: ")
-            #     team_data = getData(team_name)
             break
 
 
@@ -48,9 +38,6 @@ def getData(team_name):
             continue
         # search for the team name
         if team_name.lower() in row[0].lower():
-            # only print columns 16-end
-            # print(row[16:])
-
             # save the team's opponent data
             team_opp_data = row[16:]
             break
