@@ -31,7 +31,6 @@ def getData(team_name):
             continue
         # search for the team name
         if team_name.lower() in row[0].lower():
-            # print(row)
 
             # save the team's data
             team_data = row
